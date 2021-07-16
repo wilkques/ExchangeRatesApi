@@ -24,6 +24,14 @@ composer require wilkques/exchange-rate
     ````php
     $currencies = $exchangeRatesApiurl->currencies();
 
+    $currencies->throw(); // throw exception
+
+    // or
+
+    $currencies->throw(function ($response, $exception) {
+        // code
+    });
+
     $currencies = $currencies->json(); // to array
     ````
 1. All Methods
@@ -54,5 +62,5 @@ composer require wilkques/exchange-rate
         `throw`         | throw Exception
 
 # REFERENCE
-[Exchangeratesapi](https://exchangeratesapi.io/documentation/)
-[Http Client](https://github.com/wilkques/http-client)
+1. [Exchangeratesapi](https://exchangeratesapi.io/documentation/)
+1. [Http Client](https://github.com/wilkques/http-client)
