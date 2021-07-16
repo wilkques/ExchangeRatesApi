@@ -5,11 +5,11 @@ namespace Wilkques\ExchangeRate\Factories\Interfaces;
 interface ExchangeRateInterface
 {
     /**
-     * @param string $apiKey
+     * @param string $url
      * 
      * @return static
      */
-    public function setUrl(string $apiKey);
+    public function setUrl(string $url);
 
     /**
      * @param string $version

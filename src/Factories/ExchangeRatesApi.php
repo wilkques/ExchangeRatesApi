@@ -56,13 +56,13 @@ class ExchangeRatesApi implements ExchangeRateInterface
     }
 
     /**
-     * @param string $apiKey
+     * @param string $url
      * 
      * @return static
      */
-    public function setUrl(string $apiKey)
+    public function setUrl(string $url)
     {
-        $this->url = UrlEnum::getUrlByKey($apiKey);
+        $this->url = $url;
 
         return $this;
     }
