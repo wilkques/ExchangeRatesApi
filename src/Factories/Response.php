@@ -7,6 +7,20 @@ use JsonSerializable;
 use Wilkques\ExchangeRate\Exceptions\RequestException;
 use Wilkques\HttpClient\Response as HttpClientResponse;
 
+/**
+ * @method static int status()
+ * @method static string body()
+ * @method static array json()
+ * @method static array headers()
+ * @method static string|null header()
+ * @method static boolean ok()
+ * @method static boolean redirect()
+ * @method static boolean successful()
+ * @method static boolean failed()
+ * @method static boolean clientError()
+ * @method static boolean serverError()
+ * @method static throws throw(callable $callback = null)
+ */
 class Response implements JsonSerializable, ArrayAccess
 {
     /** @var HttpClientResponse */
@@ -197,14 +211,6 @@ class Response implements JsonSerializable, ArrayAccess
     }
 
     /**
-     * @return array
-     */
-    public function json()
-    {
-        return $this->getResponse()->json();
-    }
-
-    /**
      * Convert the object into something JSON serializable.
      *
      * @return array
@@ -306,5 +312,16 @@ class Response implements JsonSerializable, ArrayAccess
         } else {
             $this->json()[$key] = $value;
         }
+    }
+
+    /**
+     * @param string $method
+     * @param array $arguments
+     * 
+     * @return HttpClientResponse
+     */
+    public function __call(string $method, array $arguments)
+    {
+        return $this->getResponse()->{$method}(...$arguments);
     }
 }
