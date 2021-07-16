@@ -1,0 +1,22 @@
+{
+    "name": "wilkques/exchange-rate",
+    "description": "Easy Exchange Rate",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Wilkques",
+            "email": "wilkques@gmail.com"
+        }
+    ],
+    "require": {
+        "wilkques/http-client": "^0.1.3",
+        "php": "^7.4|^8.0",
+        "ext-json": "*",
+        "ext-curl":"*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Wilkques\\ExchangeRate\\": "src/"
+        }
+    }
+}
