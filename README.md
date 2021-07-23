@@ -15,8 +15,7 @@ composer require wilkques/exchange-rate
     ```php
     use Wilkques\ExchangeRate\Factories\ExchangeRatesApi;
 
-    $exchangeRatesApi = new ExchangeRatesApi;
-    $exchangeRatesApi = $exchangeRatesApiurl->url(
+    $exchangeRatesApi = (new ExchangeRatesApi)->url(
         (new UrlEnum())->getUrlByKey(UrlEnum::Exchangeratesapi)
     )->token('<access token>');
     // or
