@@ -33,11 +33,11 @@ interface ExchangeRateInterface
     public function setToken(string $access_token);
 
     /**
-     * @param array|string $symbols
+     * @param array|string $currencies
      * 
      * @return static
      */
-    public function setSymbols($symbols);
+    public function setCurrencies($currencies);
 
     /**
      * @param string $callback
@@ -96,7 +96,7 @@ interface ExchangeRateInterface
     /**
      * @return Response
      */
-    public function currencies();
+    public function symbols();
 
     /**
      * @param string $dateTime

@@ -25,7 +25,7 @@ composer require wilkques/exchange-rate
     ```
 1. Example
     ````php
-    $currencies = $exchangeRatesApiurl->currencies();
+    $currencies = $exchangeRatesApiurl->symbols();
 
     $currencies->throw(); // throw exception
 
@@ -44,7 +44,7 @@ composer require wilkques/exchange-rate
         `token`         | set access token
         `url`           | set api url
         `apiVersion`    | set api version
-        `symbols`       | set symbols
+        `currencies`    | set currencies
         `callback`      | set callback
         `base`          | set base
         `from`          | set from
@@ -53,7 +53,7 @@ composer require wilkques/exchange-rate
         `startDate`     | set startDate
         `endDate`       | set endDate
         `latest`        | call api with latest
-        `currencies`    | call api with symbols
+        `symbols`       | call api with symbols
         `historical`    | call api with historical
         `convert`       | call api with convert
         `timeseries`    | call api with timeseries

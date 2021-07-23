@@ -10,7 +10,7 @@ use Wilkques\HttpClient\Http;
  * @method static static token(string $access_token)
  * @method static static url(string $key) UrlEnum Key
  * @method static static apiVersion(string $version)
- * @method static static symbols($symbols)
+ * @method static static currencies($currencies)
  * @method static static callback(string $callback)
  * @method static static base(string $base)
  * @method static static from(string $from)
@@ -31,7 +31,7 @@ class ExchangeRatesApi implements ExchangeRateInterface
     protected $client;
     /** @var array */
     protected $methods = [
-        'token', 'url', 'apiVersion', 'symbols', 'callback', 'base', 'from', 'to',
+        'token', 'url', 'apiVersion', 'currencies', 'callback', 'base', 'from', 'to',
         'amount', 'startDate', 'endDate'
     ];
 
@@ -179,21 +179,21 @@ class ExchangeRatesApi implements ExchangeRateInterface
     }
 
     /**
-     * @param array|string|null $symbols
+     * @param array|string|null $currencies
      * 
      * @return static
      */
-    public function setSymbols($symbols = null)
+    public function setCurrencies($currencies = null)
     {
-        return $this->withOptions(compact('symbols'));
+        return $this->withOptions(compact('currencies'));
     }
 
     /**
      * @return array|string|null
      */
-    public function getSymbols()
+    public function getCurrencies()
     {
-        return $this->getOptionsByKey('symbols');
+        return $this->getOptionsByKey('currencies');
     }
 
     /**
@@ -343,7 +343,7 @@ class ExchangeRatesApi implements ExchangeRateInterface
     /**
      * @return Response
      */
-    public function currencies()
+    public function symbols()
     {
         return $this->get($this->apiUrl('symbols'));
     }
