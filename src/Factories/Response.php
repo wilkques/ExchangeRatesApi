@@ -180,7 +180,7 @@ class Response implements JsonSerializable, ArrayAccess
             if ($response->failed()) {
                 $this->setErrorCode($exception->getCode())->setErrorMessage($exception->getMessage());
 
-                if ($callback) $this->callableReturnCheck($callback($this, $this->getThrows()));
+                if ($callback) throw $this->callableReturnCheck($callback($this, $this->getThrows()));
     
                 throw $this->getThrows();
             }
@@ -205,7 +205,7 @@ class Response implements JsonSerializable, ArrayAccess
     protected function callableReturnCheck($callable = null)
     {
         if (is_null($callable)) return $this->getThrows();
-        else if (!is_object($callable)) throw new \UnexpectedValueException("throw return must be Exception Object");
+        else if (!is_object($callable)) return new \UnexpectedValueException("throw function return must be Exception Object");
 
         return $callable;
     }

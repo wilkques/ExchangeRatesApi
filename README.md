@@ -58,10 +58,6 @@ composer require wilkques/exchange-rate
         `convert`       | call api with convert
         `timeseries`    | call api with timeseries
         `fluctuation`   | call api with fluctuation
-
-    1. Response see REFERENCE [Http Client](#REFERENCE)
-        |   Methods     |   Description    |
-        |---------------|------------------|
         `throw`         | throw Exception
 
 # REFERENCE
