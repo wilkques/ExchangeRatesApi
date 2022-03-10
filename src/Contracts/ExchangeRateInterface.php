@@ -1,6 +1,6 @@
 <?php
 
-namespace Wilkques\ExchangeRate\Factories\Interfaces;
+namespace Wilkques\ExchangeRate\Contracts;
 
 interface ExchangeRateInterface
 {

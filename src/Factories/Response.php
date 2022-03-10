@@ -2,10 +2,8 @@
 
 namespace Wilkques\ExchangeRate\Factories;
 
-use ArrayAccess;
-use JsonSerializable;
 use Wilkques\ExchangeRate\Exceptions\RequestException;
-use Wilkques\HttpClient\Response as HttpClientResponse;
+use Wilkques\Http\Response as HttpClientResponse;
 
 /**
  * @method static int status()
@@ -21,7 +19,7 @@ use Wilkques\HttpClient\Response as HttpClientResponse;
  * @method static boolean serverError()
  * @method static throws throw(callable $callback = null)
  */
-class Response implements JsonSerializable, ArrayAccess
+class Response implements \JsonSerializable, \ArrayAccess
 {
     /** @var HttpClientResponse */
     protected $response;

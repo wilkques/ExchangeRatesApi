@@ -9,7 +9,7 @@
         }
     ],
     "require": {
-        "wilkques/http-client": "^0.1.3",
+        "wilkques/http-client": "^1.0.0",
         "php": "^7.4|^8.0",
         "ext-json": "*",
         "ext-curl":"*"

@@ -2,9 +2,9 @@
 
 namespace Wilkques\ExchangeRate\Factories;
 
-use Wilkques\ExchangeRate\Factories\Interfaces\ExchangeRateInterface;
+use Wilkques\ExchangeRate\Contracts\ExchangeRateInterface;
 use Wilkques\ExchangeRate\Factories\Response;
-use Wilkques\HttpClient\Http;
+use Wilkques\Http\Client;
 
 /**
  * @method static static token(string $access_token)
@@ -19,7 +19,7 @@ use Wilkques\HttpClient\Http;
  * @method static static startDate(string $startDate)
  * @method static static endDate(string $endDate)
  */
-class ExchangeRatesApi implements ExchangeRateInterface
+class ExchangeRate implements ExchangeRateInterface
 {
     /** @var array */
     protected $options = [];
@@ -27,7 +27,7 @@ class ExchangeRatesApi implements ExchangeRateInterface
     protected $version = 'v1';
     /** @var string */
     protected $url;
-    /** @var Http|null */
+    /** @var Client|null */
     protected $client;
     /** @var array */
     protected $methods = [
@@ -36,11 +36,11 @@ class ExchangeRatesApi implements ExchangeRateInterface
     ];
 
     /**
-     * @param null|Http $client
+     * @param null|Client $client
      * 
      * @return static
      */
-    public function setClient(Http $client = null)
+    public function setClient(Client $client = null)
     {
         $this->client = $client;
 
@@ -48,7 +48,7 @@ class ExchangeRatesApi implements ExchangeRateInterface
     }
 
     /**
-     * @return null|Http
+     * @return null|Client
      */
     public function getClient()
     {
@@ -387,7 +387,7 @@ class ExchangeRatesApi implements ExchangeRateInterface
      */
     public function newClient()
     {
-        return $this->client ?? $this->setClient(new Http)->getClient();
+        return $this->client ?? $this->setClient(new Client)->getClient();
     }
 
     /**

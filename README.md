@@ -13,13 +13,13 @@ composer require wilkques/exchange-rate
 ## How to use
 1. Get ExchangeRatesApi
     ```php
-    use Wilkques\ExchangeRate\Factories\ExchangeRatesApi;
+    use Wilkques\ExchangeRate\Factories\ExchangeRate;
 
-    $exchangeRatesApi = (new ExchangeRatesApi)->url(
+    $exchangeRate = (new ExchangeRate)->url(
         (new UrlEnum())->getUrlByKey(UrlEnum::Exchangeratesapi)
     )->token('<access token>');
     // or
-    $exchangeRatesApi = ExchangeRatesApi::url(
+    $exchangeRate = ExchangeRate::url(
         UrlEnum::make()->getUrlByKey(UrlEnum::Exchangeratesapi)
     )->token('<access token>')
     ```
