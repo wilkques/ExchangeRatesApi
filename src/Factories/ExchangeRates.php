@@ -1,98 +1,35 @@
 <?php
 
-namespace Wilkques\ExchangeRate\Factories;
+namespace Wilkques\ExchangeRates\Factories;
 
-use Wilkques\ExchangeRate\Contracts\ExchangeRateInterface;
-use Wilkques\ExchangeRate\Factories\Response;
 use Wilkques\Http\Client;
 
-/**
- * @method static static token(string $access_token)
- * @method static static url(string $key) UrlEnum Key
- * @method static static apiVersion(string $version)
- * @method static static currencies($currencies)
- * @method static static callback(string $callback)
- * @method static static base(string $base)
- * @method static static from(string $from)
- * @method static static to(string $to)
- * @method static static amount(string $amount)
- * @method static static startDate(string $startDate)
- * @method static static endDate(string $endDate)
- */
-class ExchangeRate implements ExchangeRateInterface
+abstract class ExchangeRates
 {
-    /** @var array */
-    protected $options = [];
-    /** @var string */
-    protected $version = 'v1';
-    /** @var string */
-    protected $url;
     /** @var Client|null */
     protected $client;
+
+    /** @var string */
+    protected $version = 'v1';
+
     /** @var array */
-    protected $methods = [
-        'token', 'url', 'apiVersion', 'currencies', 'callback', 'base', 'from', 'to',
-        'amount', 'startDate', 'endDate'
-    ];
-
-    /**
-     * @param null|Client $client
-     * 
-     * @return static
-     */
-    public function setClient(Client $client = null)
-    {
-        $this->client = $client;
-
-        return $this;
-    }
-
-    /**
-     * @return null|Client
-     */
-    public function getClient()
-    {
-        return $this->client;
-    }
+    public $methods = [];
 
     /**
      * @param string $url
      * 
      * @return static
      */
-    public function setUrl(string $url)
-    {
-        $this->url = $url;
-
-        return $this;
-    }
+    abstract public function setUrl(string $url);
 
     /**
-     * @return string
-     */
-    public function getUrl()
-    {
-        return $this->url;
-    }
-
-    /**
-     * @param string $tarage
-     * 
-     * @return string
-     */
-    public function apiUrl(string $tarage)
-    {
-        return sprintf('%s/%s/%s', $this->getUrl(), $this->getApiVersion(), $tarage);
-    }
-
-    /**
-     * @param array $options
+     * @param array $methods
      * 
      * @return static
      */
-    public function setOptions(array $options)
+    public function setMethods(array $methods)
     {
-        $this->options = $options;
+        $this->methods += $methods;
 
         return $this;
     }
@@ -100,42 +37,9 @@ class ExchangeRate implements ExchangeRateInterface
     /**
      * @return array
      */
-    public function getOptions()
+    public function getMethods()
     {
-        return $this->options;
-    }
-
-    /**
-     * @param string $key
-     * @param mixed $value
-     * 
-     * @return static
-     */
-    public function setOptionsByKey(string $key, $value)
-    {
-        $this->options[$key] = $value;
-
-        return $this;
-    }
-
-    /**
-     * @param string $key
-     * 
-     * @return mixed
-     */
-    public function getOptionsByKey(string $key)
-    {
-        return $this->options[$key];
-    }
-
-    /**
-     * @param array $options
-     * 
-     * @return static
-     */
-    public function withOptions(array $options = [])
-    {
-        return $this->setOptions(array_replace_recursive($this->options, $options));
+        return $this->methods;
     }
 
     /**
@@ -159,227 +63,23 @@ class ExchangeRate implements ExchangeRateInterface
     }
 
     /**
-     * @param string $access_token
+     * @param null|Client $client
      * 
      * @return static
      */
-    public function setToken(string $access_key = null)
+    public function setClient(Client $client = null)
     {
-        $this->withOptions(compact('access_key'));
+        $this->client = $client;
 
         return $this;
     }
 
     /**
-     * @return string
+     * @return null|Client
      */
-    public function getToken()
+    public function getClient()
     {
-        return $this->getOptionsByKey('access_key');
-    }
-
-    /**
-     * @param array|string|null $currencies
-     * 
-     * @return static
-     */
-    public function setCurrencies($currencies = null)
-    {
-        return $this->withOptions(compact('currencies'));
-    }
-
-    /**
-     * @return array|string|null
-     */
-    public function getCurrencies()
-    {
-        return $this->getOptionsByKey('currencies');
-    }
-
-    /**
-     * @param string $base
-     * 
-     * @return static
-     */
-    public function setBase(string $base = null)
-    {
-        return $this->withOptions(compact('base'));
-    }
-
-    /**
-     * @return string
-     */
-    public function getBase()
-    {
-        return $this->getOptionsByKey('base');
-    }
-
-    /**
-     * @param string $from
-     * 
-     * @return static
-     */
-    public function setFrom(string $from = null)
-    {
-        return $this->withOptions(compact('from'));
-    }
-
-    /**
-     * @return string
-     */
-    public function getFrom()
-    {
-        return $this->getOptionsByKey('from');
-    }
-
-    /**
-     * @param string $to
-     * 
-     * @return static
-     */
-    public function setTo(string $to = null)
-    {
-        return $this->withOptions(compact('to'));
-    }
-
-    /**
-     * @return string
-     */
-    public function getTo()
-    {
-        return $this->getOptionsByKey('to');
-    }
-
-    /**
-     * @param float|string|null $amount
-     * 
-     * @return static
-     */
-    public function setAmount($amount = null)
-    {
-        return $this->withOptions(compact('amount'));
-    }
-
-    /**
-     * @return float|string|null
-     */
-    public function getAmount()
-    {
-        return $this->getOptionsByKey('amount');
-    }
-
-    /**
-     * @param string $start_date
-     * 
-     * @return static
-     */
-    public function setStartDate(string $start_date = null)
-    {
-        return $this->withOptions(compact('start_date'));
-    }
-
-    /**
-     * @return string
-     */
-    public function getStartDate()
-    {
-        return $this->getOptionsByKey('start_date');
-    }
-
-    /**
-     * @param string $end_date
-     * 
-     * @return static
-     */
-    public function setEndDate(string $end_date = null)
-    {
-        return $this->withOptions(compact('end_date'));
-    }
-
-    /**
-     * @return string
-     */
-    public function getEndDate()
-    {
-        return $this->getOptionsByKey('end_date');
-    }
-
-    /**
-     * @param string $callback
-     * 
-     * @return static
-     */
-    public function setCallback(string $callback = null)
-    {
-        return $this->withOptions(compact('callback'));
-    }
-
-    /**
-     * @return string
-     */
-    public function getCallback()
-    {
-        return $this->getOptionsByKey('callback');
-    }
-
-    /**
-     * @param string $apiUrl
-     * 
-     * @return Response
-     */
-    public function get(string $apiUrl)
-    {
-        return new Response($this->getClient()->get($apiUrl, $this->getOptions()));
-    }
-
-    /**
-     * @return Response
-     */
-    public function latest()
-    {
-        return $this->get($this->apiUrl('latest'));
-    }
-
-    /**
-     * @return Response
-     */
-    public function symbols()
-    {
-        return $this->get($this->apiUrl('symbols'));
-    }
-
-    /**
-     * @param string $dateTime
-     * 
-     * @return Response
-     */
-    public function historical(string $dateTime)
-    {
-        return $this->get($this->apiUrl($dateTime));
-    }
-
-    /**
-     * @return Response
-     */
-    public function convert()
-    {
-        return $this->get($this->apiUrl('convert'));
-    }
-
-    /**
-     * @return Response
-     */
-    public function timeseries()
-    {
-        return $this->get($this->apiUrl('timeseries'));
-    }
-
-    /**
-     * @return Response
-     */
-    public function fluctuation()
-    {
-        return $this->get($this->apiUrl('fluctuation'));
+        return $this->client;
     }
 
     /**
@@ -421,15 +121,13 @@ class ExchangeRate implements ExchangeRateInterface
     {
         $method = ltrim(trim($method));
 
-        $client = $this->newClient();
-
         if (in_array($method, $this->methods)) {
             $method = "set" . ucfirst($method);
 
             return $this->{$method}(...$arguments);
         }
 
-        return $client->{$method}(...$arguments);
+        return $this->newClient()->{$method}(...$arguments);
     }
 
     /**

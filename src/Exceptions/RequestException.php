@@ -1,8 +1,8 @@
 <?php
 
-namespace Wilkques\ExchangeRate\Exceptions;
+namespace Wilkques\ExchangeRates\Exceptions;
 
-use Wilkques\ExchangeRate\Factories\Response;
+use Wilkques\ExchangeRates\Response;
 
 class RequestException extends \Exception
 {

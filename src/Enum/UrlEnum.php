@@ -1,9 +1,12 @@
 <?php
 
-namespace Wilkques\ExchangeRate\Factories;
+namespace Wilkques\ExchangeRates\Enum;
 
 class UrlEnum
 {
+    /** @var string */
+    protected $https = 'https';
+
     /** @var string */
     const Exchangeratesapi = 'exchangeratesapi';
 
@@ -35,17 +38,17 @@ class UrlEnum
      */
     public function getUrlByKey(string $key)
     {
-        return sprintf($this->getUrls()[$key], $this->getHttp());
+        return sprintf($this->getUrls()[$key], $this->getHttps());
     }
 
     /**
-     * @param string $http
+     * @param string $https
      * 
      * @return static
      */
-    public function setHttp(string $http)
+    public function setHttps(string $https)
     {
-        $this->http = $http;
+        $this->https = $https;
 
         return $this;
     }
@@ -53,9 +56,9 @@ class UrlEnum
     /**
      * @return string
      */
-    public function getHttp()
+    public function getHttps()
     {
-        return $this->http;
+        return $this->https;
     }
 
     /**
@@ -65,7 +68,7 @@ class UrlEnum
      */
     public function supportHTTPS(bool $supportHTTPS = true)
     {
-        return $this->setHttp($supportHTTPS ? 'https' : 'http');
+        return $this->setHttps($supportHTTPS ? 'https' : 'http');
     }
 
     /**

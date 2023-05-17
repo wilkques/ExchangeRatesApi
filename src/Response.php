@@ -1,8 +1,8 @@
 <?php
 
-namespace Wilkques\ExchangeRate\Factories;
+namespace Wilkques\ExchangeRates;
 
-use Wilkques\ExchangeRate\Exceptions\RequestException;
+use Wilkques\ExchangeRates\Exceptions\RequestException;
 use Wilkques\Http\Response as HttpClientResponse;
 
 /**
@@ -23,12 +23,16 @@ class Response implements \JsonSerializable, \ArrayAccess
 {
     /** @var HttpClientResponse */
     protected $response;
+
     /** @var integer */
     protected $errorCode;
+
     /** @var string */
     protected $errorMessage;
+
     /** @var string */
     protected $mappingMessage = null;
+
     /** @var array */
     protected $errorCodeDescription = [
         404 => "The requested resource does not exist.",
@@ -173,13 +177,13 @@ class Response implements \JsonSerializable, \ArrayAccess
     {
         $response = $this->getResponse()->throw(function (
             HttpClientResponse $response,
-            \Wilkques\HttpClient\Exceptions\RequestException $exception
+            \Wilkques\Http\Exceptions\RequestException $exception
         ) use ($callback) {
             if ($response->failed()) {
                 $this->setErrorCode($exception->getCode())->setErrorMessage($exception->getMessage());
 
                 if ($callback) throw $this->callableReturnCheck($callback($this, $this->getThrows()));
-    
+
                 throw $this->getThrows();
             }
         })->json();
@@ -187,7 +191,9 @@ class Response implements \JsonSerializable, \ArrayAccess
         if (!$response['success'] && array_key_exists('error', $response)) {
             $this->setErrorCode($response['error']['code'])->setErrorMessage($response['error']['info']);
 
-            throw $this->callableReturnCheck($callback($this, $this->getThrows()));
+            if ($callback) throw $this->callableReturnCheck($callback($this, $this->getThrows()));
+
+            throw $this->getThrows();
         }
 
         return $this;

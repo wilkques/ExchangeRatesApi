@@ -1,29 +1,15 @@
 <?php
 
-namespace Wilkques\ExchangeRate\Contracts;
+namespace Wilkques\ExchangeRates\Contracts;
 
-interface ExchangeRateInterface
+interface ExchangeRatesApiInterface
 {
-    /**
-     * @param string $url
-     * 
-     * @return static
-     */
-    public function setUrl(string $url);
-
-    /**
-     * @param string $version
-     * 
-     * @return static
-     */
-    public function setApiVersion(string $version);
-
     /**
      * @param array $options
      * 
      * @return static
      */
-    public function withOptions(array $options = []);
+    public function withData(array $options = []);
 
     /**
      * @param string $access_token

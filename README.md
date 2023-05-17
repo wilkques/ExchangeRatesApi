@@ -10,22 +10,26 @@ composer require wilkques/exchange-rate
 |      API        |              Url                |           Document              |
 |-----------------|---------------------------------|---------------------------------|
  exchangeratesapi | https://api.exchangeratesapi.io | https://exchangeratesapi.io/documentation/
+
+
 ## How to use
 1. Get ExchangeRatesApi
     ```php
-    use Wilkques\ExchangeRate\Factories\ExchangeRate;
+    use Wilkques\ExchangeRates\ExchangeRate;
+    use Wilkques\ExchangeRates\Enum\FactoriesEnum;
 
-    $exchangeRate = (new ExchangeRate)->url(
-        (new UrlEnum())->getUrlByKey(UrlEnum::Exchangeratesapi)
+    $exchangeRate = (new ExchangeRate)->exchangeRate(
+        FactoriesEnum::Exchangeratesapi
     )->token('<access token>');
     // or
-    $exchangeRate = ExchangeRate::url(
-        UrlEnum::make()->getUrlByKey(UrlEnum::Exchangeratesapi)
+    $exchangeRate = ExchangeRate::make(
+        FactoriesEnum::Exchangeratesapi
     )->token('<access token>')
     ```
+
 1. Example
     ````php
-    $currencies = $exchangeRatesApiurl->symbols();
+    $currencies = $exchangeRate->symbols();
 
     $currencies->throw(); // throw exception
 
@@ -37,6 +41,7 @@ composer require wilkques/exchange-rate
 
     $currencies = $currencies->json(); // to array
     ````
+
 1. All Methods
     1. ExchangeRatesApi
         |   Methods     |   Description    |
